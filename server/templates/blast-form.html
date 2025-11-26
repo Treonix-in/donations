@@ -1,0 +1,114 @@
+{% extends "new_layout.html" %}
+
+{% block title %}The Blast | The Texas Tribune{% endblock %}
+
+{% block og_meta %}
+  <meta property="og:url" content="https://support.texastribune.org/blast">
+  <meta property="og:image" content="https://support.texastribune.org{{ url_for('static', filename='img/social-blast.png') }}">
+  <meta property="og:title" content="The Blast | The Texas Tribune">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="The Blast, The Texas Tribune’s premier newsletter, puts to use the full weight of the newsroom’s political team to serve up exclusive reporting, nonpartisan analysis and the first word on political moves across the state for insiders like you.">
+{% endblock %}
+
+{% block head_scripts %}
+{% if form_data and message %}
+<script>
+  window.location.replace('#join-today');
+</script>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+  <main class="main">
+    <!-- where the router component attaches -->
+    <div id="app" style="display:none;"></div>
+
+    <section class="splash splash--blast">
+      <div class="grid_container grid_row grid_padded grid_wrap--m align-bottom">
+        <figure class="col col_5--m">
+          <a class="splash__logo" href="https://www.texastribune.org/theblast/" class="unlink"><img src="{{ url_for('static', filename='img/c-blast-header-backup-logo.png') }}"
+              alt="The Blast logo, a product of The Texas Tribune"></a>
+        </figure>
+        <div class="col col_7--m splash__bug">
+          <img src="{{ url_for('static', filename='img/TT-aprojectby.svg')}}" alt="A project by The Texas Tribune">
+        </div>
+      </div>
+    </section>
+
+    <div class="grid_container grid_padded--xl">
+      <section class="section-padding print__hide">
+        <header class="grid_container--m grid_separator">
+          <div class="border--yellow_notch"></div>
+          <h2 class="grid_separator">The best political newsletter in Texas.</h2>
+          <div class="prose grid_separator--xl">
+            <p>The Blast, The Texas Tribune’s premier newsletter, puts to use the full weight of the newsroom’s political team to serve up exclusive reporting, nonpartisan analysis and the first word on political moves across the state for insiders like you.</p>
+          </div>
+        </header>
+        <!-- for hash links when a form is invalid -->
+        <div id="join-today"></div>
+        <!-- where the form attaches -->
+        <div id="blast-form"></div>
+      </section>
+
+      <section class="grid_container--m section-padding grid_padded print__hide">
+        <header>
+          <div class="border--yellow_notch"></div>
+          <h2 class="grid_separator">Questions?</h2>
+        </header>
+        <div class="contact grid_row grid_wrap--l grid_separator">
+          <div class="col">
+            <p class="grid_separator--s">For Blast questions, contact:</p>
+            <p><strong>Matthew Watkins</strong></p>
+            <p>Editor in Chief</p>
+            <p class="grid_separator"><a href="mailto:mwatkins@texastribune.org">mwatkins@texastribune.org</a></p>
+          </div>
+          <div class="col">
+            <p class="grid_separator--s">For <a href="https://www.texastribune.org/support-us/corporate-sponsors/">corporate sponsorships</a> and business membership, contact:</p>
+            <p><strong>Robert Nusbaum</strong></p>
+            <p>Vice President of Sales</p>
+            <p>512-947-9017</p>
+            <p><a href="mailto:rnusbaum@texastribune.org">rnusbaum@texastribune.org</a></p>
+          </div>
+        </div>
+        <div class="contact grid_row grid_wrap--l grid_separator--l">
+          <div class="col">
+            <p class="grid_separator--s">For other membership questions, contact:</p>
+            <p>512-993-0166</p>
+            <p class="grid_separator"><a href="mailto:membership@texastribune.org">membership@texastribune.org</a></p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+{% endblock %}
+
+{% block bottom_script %}
+  <script>
+    window.__STRIPE_KEY__ = '{{ stripe }}';
+    window.__RECAPTCHA_KEY__ = '{{ recaptcha }}';
+  </script>
+
+  {% if form_data and message %}
+  <script>
+    window.__TOP_FORM_SERVER_ERROR_MESSAGE__ = {{ message|tojson }};
+    window.__BLAST_FORM_REHYDRATION__ = {{ form_data|tojson }};
+  </script>
+  {% endif %}
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha }}"></script>
+  <script>
+    !function () {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://risk.clearbit.com/v1/risk.js';
+      var parent = document.getElementsByTagName('script')[0];
+      parent.parentNode.insertBefore(script, parent);
+    }();
+  </script>
+
+  {% for script in bundles['js'] %}
+    <script src="{{ script }}"></script>
+  {% endfor %}
+{% endblock %}

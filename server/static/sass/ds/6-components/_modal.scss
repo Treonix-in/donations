@@ -1,0 +1,32 @@
+.c-modal {
+  position: relative;
+
+  &__top {
+    display: flex;
+    height: 6.25rem;
+  }
+
+  &__heading {
+    display: flex;
+    height: 3.75rem;
+  }
+
+  &__body {
+    padding-left: $size-b;
+    padding-right: $size-b;
+    padding-bottom: $size-b;
+  }
+
+  &__buttons {
+    display: grid;
+    gap: .1rem;
+    grid-gap: .1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &__close {
+    position: absolute;
+    right: .75rem;
+    top: .75rem;
+  }
+}

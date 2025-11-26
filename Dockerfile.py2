@@ -1,0 +1,12 @@
+FROM python:2-slim
+
+RUN pip install --upgrade pip
+
+RUN pip install \
+  stripe==1.31.0 \
+  salesforce-bulk==1.1.0 \
+  simple-salesforce==0.68.1 \
+  celery==3.1.23
+
+COPY *.py /app/
+CMD ["python", "/app/reconcile-email.py"]

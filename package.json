@@ -1,0 +1,128 @@
+{
+  "name": "donations",
+  "description": "Collect donations for nonprofits",
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/texastribune/donations"
+  },
+  "bugs": {
+    "url": "https://github.com/texastribune/donations/issues"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "firefox ESR",
+    "iOS >= 12",
+    "safari >= 12",
+    "samsung >= 12",
+    "not ie 11",
+    "not dead"
+  ],
+  "engines": {
+    "node": "12.x"
+  },
+  "scripts": {
+    "css:dev": "NODE_ENV=development node config/tasks/dev.js",
+    "css:prod": "NODE_ENV=production node config/tasks/build.js",
+    "js:dev": "NODE_ENV=development webpack --config webpack/config.dev.js",
+    "js:prod": "NODE_ENV=production webpack --config webpack/config.prod.js",
+    "dev": "npm-run-all --parallel css:dev js:dev",
+    "postinstall": "npm run css:prod && npm run js:prod",
+    "lint": "eslint --ext .js,.vue static/js/src config"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.20.12",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/runtime": "^7.15.4",
+    "@sentry/browser": "^5.6.0",
+    "@sentry/integrations": "^5.6.0",
+    "@sentry/webpack-plugin": "^1.18.9",
+    "@texastribune/queso-tools": "^2.3.1",
+    "@texastribune/queso-ui": "^10.4.1",
+    "auth0-js": "^9.17.0",
+    "axios": "^0.21.4",
+    "babel-loader": "^8.2.3",
+    "camelcase": "^5.3.1",
+    "clean-webpack-plugin": "^2.0.2",
+    "css-loader": "^5.2.7",
+    "date-fns": "^1.30.1",
+    "dompurify": "^2.5.7",
+    "es6-promise": "^4.2.4",
+    "fast-async": "7",
+    "file-loader": "^1.1.11",
+    "glob-watcher": "^5.0.3",
+    "jsonwebtoken": "^9.0.0",
+    "jspdf": "^2.3.1",
+    "nodent-runtime": "^3.2.1",
+    "npm-run-all": "^4.1.5",
+    "validate.js": "^0.12.0",
+    "vee-validate": "^3.2.1",
+    "vue": "^2.7.0",
+    "vue-clipboard2": "^0.3.0",
+    "vue-js-modal": "^2.0.1",
+    "vue-loader": "^15.7.0",
+    "vue-router": "^3.5.2",
+    "vue-stripe-elements-plus": "0.2.8",
+    "vue-template-compiler": "^2.7.0",
+    "vuex": "^3.0.1",
+    "webpack": "^4.40.0",
+    "webpack-assets-manifest": "^4.0.6",
+    "webpack-cli": "^4.9.2",
+    "webpack-merge": "^4.1.2",
+    "webpack-sources": "^3.2.3"
+  },
+  "devDependencies": {
+    "acorn": "^7.4.1",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-vue": "^7.2.0",
+    "vue-eslint-parser": "^7.11.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true
+    },
+    "parser": "vue-eslint-parser",
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "extends": [
+      "plugin:vue/recommended",
+      "airbnb-base",
+      "prettier",
+      "prettier/vue"
+    ],
+    "rules": {
+      "no-console": "error",
+      "vue/component-name-in-template-casing": [
+        "error",
+        "kebab-case"
+      ],
+      "vue/custom-event-name-casing": [
+        "error",
+        "camelCase"
+      ],
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ]
+    }
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5"
+  }
+}

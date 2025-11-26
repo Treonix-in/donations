@@ -1,0 +1,112 @@
+{% extends "new_layout.html" %}
+
+{% block og_meta %}
+  <meta property="og:url" content="https://support.texastribune.org/donate">
+  <meta property="og:image" content="https://support.texastribune.org{{ url_for('static', filename='img/social.png') }}">
+  <meta property="og:title" content="Support Us | The Texas Tribune">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="Members make our journalism possible. Support The Texas Tribune with a donation today.">
+  <meta name="twitter:card" content="summary_large_image">
+{% endblock %}
+
+{% block head_scripts %}
+{% if form_data and message %}
+<script>
+  window.location.replace('#join-today');
+</script>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+  <section class="splash splash--tall grid_separator--l">
+    <div class="grid_container grid_padded--xl">
+      <div class="grid_row grid_wrap--l">
+        <div class="col_12">
+          <h1 class="splash__headline">
+            Texans need truth. <span class="has-text-yellow l-display-ib">Help us report it.</span>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main">
+    {% if use_thermometer %}
+      {% include "includes/thermometer.html" %}
+    {% endif %}
+
+    <section class="grid_container grid_padded--xl grid_separator--xl">
+      <div class="grid_row grid_wrap--l gap-s">
+        <div class="col_7">
+          <div id="join-today" class="donation_form grid_separator--l">
+            <!-- where the router component attaches -->
+            <div id="app" style="display:none;"></div>
+            <!--<div class="c-message grid_separator has-text-gray-dark t-size-s">
+               <p>Use this area for timely messaging (eg. membership drive, giving Tuesday, etc.)</p>
+            </div>-->
+            {% if not use_thermometer %}
+            <h2 class="grid_separator link--teal">Texas Tribune Membership</h2>
+            {% endif %}
+            <!-- where the form attaches -->
+            <div id="top-form"></div>
+            <div class="grid_separator"></div>
+            <div class="give-options">
+              <p class="has-text-gray-dark t-size-s">Looking for others ways to give?</p>
+              <ul class="give-options">
+                <li><a href='https://www.paypal.me/texastribune'><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" width="70" height="18" class="l-display-ib" style="vertical-align: middle;"></a></li>
+                <li><a class="has-text-teal t-size-s" href="/donor-advised-funds"><strong>Donor Advised Funds</strong></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        {% if not use_thermometer %}
+        <div class="col_5">
+          {% include 'includes/faq.html' %}
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="section-padding grid_padded--xl section-padding--filled">
+      {% if use_thermometer %}
+        <div class="grid_container grid_row grid_wrap--l gap-s l-swap--from-bp-m">
+          <div class="col_5">
+            {% include 'includes/faq.html' %}
+          </div>
+        </div>
+      {% endif %}
+    </section>
+  </main>
+{% endblock %}
+
+{% block bottom_script %}
+  <script>
+    window.__STRIPE_KEY__ = '{{ stripe }}';
+    window.__RECAPTCHA_KEY__ = '{{ recaptcha }}';
+  </script>
+
+  {% if form_data and message %}
+  <script>
+    window.__TOP_FORM_SERVER_ERROR_MESSAGE__ = {{ message|tojson }};
+    window.__BASE_FORM_REHYDRATION__ = {{ form_data|tojson }};
+  </script>
+  {% endif %}
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha }}"></script>
+  <script>
+    !function () {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://risk.clearbit.com/v1/risk.js';
+      var parent = document.getElementsByTagName('script')[0];
+      parent.parentNode.insertBefore(script, parent);
+    }();
+  </script>
+
+  {% for script in bundles['js'] %}
+    <script src="{{ script }}"></script>
+  {% endfor %}
+{% endblock %}
+
+
