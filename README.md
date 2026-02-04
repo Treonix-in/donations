@@ -103,7 +103,4 @@ Project Structure
 
 Though flask is pretty unopinionated about project structure, we've opted to use a "simple package" approach to our structure as mentioned as a possible option in the [flask documentation](https://flask.palletsprojects.com/en/2.3.x/patterns/packages/#simple-packages). Thus, the flasky pieces of this project live in the `server` folder. This ends up adhering closest to the current structure of our other major project, creating some consistentcy.
 
-Security
---------
 
-If you find vulnerabilities in this repo please report them to security@texastribune.org.
